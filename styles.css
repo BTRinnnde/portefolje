@@ -1,0 +1,1061 @@
+:root {
+    --bg-primary: #121212;
+    --bg-secondary: #1e1e1e;
+    --text-primary: #f5f5f5;
+    --text-secondary: #a0a0a0;
+    --accent: #3eaf7c;
+    --accent-hover: #4bc18d;
+    --accent-secondary: #4d9de0;
+    --accent-tertiary: #e6b31e;
+    --border: #333;
+    --spacing-sm: 1rem;
+    --spacing-md: 2rem;
+    --spacing-lg: 4rem;
+    --gradient-primary: linear-gradient(120deg, var(--accent) 0%, #2c8863 100%);
+    --gradient-secondary: linear-gradient(120deg, var(--accent-secondary) 0%, #3173b1 100%);
+    --gradient-tertiary: linear-gradient(120deg, var(--accent-tertiary) 0%, #d39e11 100%);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-sm);
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 500;
+    margin-bottom: var(--spacing-sm);
+    line-height: 1.2;
+}
+
+h1 {
+    font-size: 3rem;
+    letter-spacing: -0.5px;
+}
+
+h2 {
+    font-size: 2.25rem;
+    margin-bottom: var(--spacing-md);
+    position: relative;
+}
+
+h2:after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 60px;
+    height: 3px;
+    background: var(--gradient-primary);
+}
+
+h3 {
+    font-size: 1.5rem;
+}
+
+p {
+    margin-bottom: var(--spacing-sm);
+    color: var(--text-secondary);
+}
+
+a {
+    color: var(--text-primary);
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+a:hover {
+    color: var(--accent);
+}
+
+/* Header & Navigation */
+header {
+    padding: var(--spacing-md) 0;
+    position: fixed;
+    width: 100%;
+    z-index: 100;
+    background-color: var(--bg-primary);
+    top: 0;
+    left: 0;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-md);
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: -0.5px;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+}
+
+.nav-links li {
+    margin-left: var(--spacing-md);
+}
+
+.nav-links a {
+    position: relative;
+}
+
+.nav-links a:after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--gradient-primary);
+    transition: width 0.3s ease;
+}
+
+.nav-links a:hover:after {
+    width: 100%;
+}
+
+/* Hero Section */
+#hero {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding-top: var(--spacing-lg);
+    background: linear-gradient(rgba(18, 18, 18, 0.7), rgba(18, 18, 18, 0.9)), 
+                url('images/wallpaper.jpg');
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+#hero:before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100px;
+    background: linear-gradient(to top, var(--bg-primary), transparent);
+    z-index: 1;
+}
+
+.hero-content {
+    max-width: 700px;
+    padding: 0 var(--spacing-sm);
+}
+
+.hero-content p {
+    font-size: 1.5rem;
+    margin-top: var(--spacing-sm);
+}
+
+/* Sections */
+section {
+    padding: var(--spacing-lg) 0;
+    margin-bottom: var(--spacing-lg);
+}
+
+/* Portfolio Section */
+.portfolio-items {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-md);
+}
+
+.portfolio-item {
+    background-color: var(--bg-secondary);
+    padding: var(--spacing-md);
+    border-radius: 8px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-top: 3px solid transparent;
+    overflow: hidden;
+    position: relative;
+    animation: fadeIn 0.5s ease forwards;
+    opacity: 0;
+}
+
+.portfolio-item:nth-child(odd) {
+    border-top-color: var(--accent-secondary);
+}
+
+.portfolio-item:nth-child(even) {
+    border-top-color: var(--accent-tertiary);
+}
+
+.portfolio-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.portfolio-item:before {
+    content: '';
+    position: absolute;
+    top: -200%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: rgba(255, 255, 255, 0.05);
+    transform: rotate(45deg);
+    transition: all 0.4s ease;
+}
+
+.portfolio-item:hover:before {
+    top: -100%;
+}
+
+.btn {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    margin-top: var(--spacing-sm);
+    font-weight: 500;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.btn:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: var(--gradient-primary);
+    transition: all 0.3s ease;
+    z-index: -1;
+}
+
+.btn:hover {
+    color: white;
+    border-color: transparent;
+}
+
+.btn:hover:before {
+    left: 0;
+}
+
+.btn-primary {
+    background: var(--gradient-primary);
+    border: none;
+    color: #ffffff;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.btn-primary:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(120deg, var(--accent-hover) 0%, var(--accent) 100%);
+    transition: all 0.3s ease;
+    z-index: -1;
+    display: block;
+}
+
+.btn-primary:hover:before {
+    left: 0;
+}
+
+.btn-primary:hover {
+    color: #ffffff;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Light theme specific button styles */
+body.light-theme .btn-primary {
+    color: #ffffff;
+}
+
+body.light-theme .btn-primary:hover {
+    color: #ffffff;
+}
+
+/* Resume Section */
+.resume-preview {
+    background-color: var(--bg-secondary);
+    padding: var(--spacing-md);
+    border-radius: 8px;
+    margin-top: var(--spacing-md);
+}
+
+.resume-section {
+    margin-bottom: var(--spacing-md);
+    position: relative;
+}
+
+.resume-section h3 {
+    display: inline-block;
+    padding-bottom: 5px;
+    position: relative;
+}
+
+.resume-section h3:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 50%;
+    height: 2px;
+    background: var(--gradient-primary);
+}
+
+.resume-item {
+    margin-bottom: var(--spacing-sm);
+    padding-bottom: var(--spacing-sm);
+    border-bottom: 1px solid var(--border);
+    transition: transform 0.3s ease;
+}
+
+.resume-item:hover {
+    transform: translateX(5px);
+}
+
+.resume-item:last-child {
+    border-bottom: none;
+}
+
+.resume-date {
+    font-size: 0.9rem;
+    color: var(--accent);
+    margin-bottom: 0.25rem;
+    position: relative;
+    display: inline-block;
+    animation: fadeIn 0.3s ease forwards;
+    animation-fill-mode: both;
+    opacity: 0;
+}
+
+.resume-date:before {
+    content: '●';
+    margin-right: 5px;
+    color: var(--accent);
+}
+
+.skills-list {
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    gap: 10px;
+    animation: fadeIn 0.3s ease forwards;
+    animation-fill-mode: both;
+    opacity: 0;
+}
+
+.skills-list li {
+    background-color: var(--bg-primary);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    border: 1px solid var(--border);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    animation: fadeIn 0.3s ease forwards;
+    animation-fill-mode: both;
+    opacity: 0;
+}
+
+.skills-list li:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: var(--gradient-primary);
+    opacity: 0.2;
+    transition: all 0.3s ease;
+    z-index: -1;
+}
+
+.skills-list li:hover {
+    transform: translateY(-2px);
+    border-color: var(--accent);
+}
+
+.skills-list li:hover:before {
+    left: 0;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: var(--spacing-md) 0;
+    color: var(--text-secondary);
+    border-top: 1px solid var(--border);
+    margin-top: var(--spacing-lg);
+    background-color: var(--bg-secondary);
+}
+
+/* Enhanced Footer */
+.footer-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+}
+
+.footer-logo {
+    text-align: left;
+}
+
+.footer-logo .logo {
+    margin-bottom: 0.5rem;
+}
+
+.footer-links {
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-md);
+}
+
+.footer-social {
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--spacing-sm);
+}
+
+.footer-social a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: var(--bg-primary);
+    transition: all 0.3s ease;
+}
+
+.footer-social a:hover {
+    background-color: var(--accent);
+    transform: translateY(-3px);
+}
+
+.footer-social i {
+    font-size: 1.2rem;
+}
+
+.footer-bottom {
+    padding-top: var(--spacing-sm);
+    border-top: 1px solid var(--border);
+}
+
+.accent {
+    color: var(--accent);
+}
+
+/* Media Queries for Responsive Design */
+@media (max-width: 1024px) {
+    .portfolio-items {
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2.5rem;
+    }
+    
+    h2 {
+        font-size: 1.8rem;
+    }
+    
+    .nav-links {
+        display: none;
+    }
+    
+    .portfolio-items {
+        grid-template-columns: 1fr;
+    }
+    
+    section {
+        padding: var(--spacing-md) 0;
+    }
+    
+    .about-content {
+        grid-template-columns: 1fr;
+        grid-template-areas: 
+            "text"
+            "stats";
+    }
+    
+    .about-text {
+        grid-area: text;
+        margin-bottom: var(--spacing-md);
+    }
+    
+    .about-stats {
+        grid-area: stats;
+    }
+    
+    .contact-methods {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: var(--spacing-md);
+    }
+    
+    .contact-item {
+        width: 150px;
+    }
+    
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-md);
+        text-align: center;
+    }
+    
+    .footer-logo {
+        text-align: center;
+    }
+    
+    .footer-social {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 2rem;
+    }
+    
+    h2 {
+        font-size: 1.5rem;
+    }
+    
+    h3 {
+        font-size: 1.2rem;
+    }
+    
+    .container {
+        padding: 0 var(--spacing-sm);
+    }
+    
+    .hero-content p {
+        font-size: 1.2rem;
+    }
+    
+    .contact-methods {
+        gap: var(--spacing-sm);
+    }
+    
+    .contact-item {
+        width: 130px;
+        padding: var(--spacing-sm);
+    }
+    
+    .resume-section h3 {
+        font-size: 1.3rem;
+    }
+    
+    .resume-item h4 {
+        font-size: 1.1rem;
+    }
+    
+    .stat-item {
+        padding: var(--spacing-sm);
+    }
+    
+    .back-to-top {
+        bottom: 20px;
+        right: 20px;
+    }
+}
+
+@media (max-width: 350px) {
+    .contact-methods {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .contact-item {
+        width: 100%;
+        max-width: 200px;
+    }
+    
+    .btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+    }
+    
+    .skills-list li {
+        padding: 0.3rem 0.8rem;
+        font-size: 0.8rem;
+    }
+}
+
+/* Fix for very small height screens */
+@media (max-height: 600px) {
+    #hero {
+        height: auto;
+        min-height: 100vh;
+        padding: calc(var(--spacing-lg) * 2) 0;
+    }
+}
+
+/* Touch-friendly adjustments */
+@media (hover: none) {
+    .btn, .nav-links a, .contact-item {
+        transition: none;
+    }
+    
+    .btn:active, .portfolio-item:active, .contact-item:active {
+        transform: scale(0.98);
+    }
+}
+
+/* Improve header and navigation */
+@media (max-width: 768px) {
+    header {
+        padding: var(--spacing-sm) 0;
+    }
+    
+    nav {
+        padding: 0 var(--spacing-sm);
+    }
+}
+
+/* Ensure images don't overflow on small screens */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Ensure portfolio items stack properly on mobile */
+@media (max-width: 480px) {
+    .portfolio-item {
+        padding: var(--spacing-sm);
+    }
+    
+    .portfolio-icon {
+        width: 48px;
+        height: 48px;
+    }
+}
+
+/* Animation Classes */
+.fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.nav-links a.active {
+    color: var(--accent);
+}
+
+.nav-links a.active:after {
+    width: 100%;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Adjust this selector to not affect btn-primary:hover */
+.accent, .portfolio-icon, .resume-date, .contact-item i {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.accent:hover, .portfolio-icon:hover, .resume-date:hover, .contact-item:hover i {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Add subtle background pattern */
+body:before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(125deg, var(--bg-primary) 0%, var(--bg-primary) 40%, rgba(30, 30, 30, 0.8) 40.1%, var(--bg-primary) 70%, var(--bg-primary) 100%);
+    opacity: 0.4;
+    z-index: -1;
+    transition: background 0.3s ease;
+}
+
+/* Add back to top button */
+.back-to-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--gradient-primary);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.3s ease;
+    z-index: 10;
+}
+
+.back-to-top.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.back-to-top:hover {
+    transform: translateY(-5px);
+}
+
+/* Add styles for CV download button */
+.btn-download {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.btn-download i {
+    font-size: 1.2rem;
+}
+
+/* Styling for "More to come" box */
+.portfolio-item.more-to-come {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 200px;
+    border-top-color: var(--accent);
+}
+
+.portfolio-item.more-to-come h3 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.contact-methods {
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-md);
+}
+
+.contact-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-md);
+    background-color: var(--bg-secondary);
+    border-radius: 8px;
+    width: 150px;
+    transition: all 0.3s ease;
+    animation: fadeIn 0.3s ease forwards;
+    animation-fill-mode: both;
+    opacity: 0;
+}
+
+.contact-item span {
+    text-align: center;
+    width: 100%;
+    display: block;
+    word-break: break-word;
+    hyphens: auto;
+    margin-top: var(--spacing-sm);
+    line-height: 1.2;
+}
+
+.contact-item i {
+    font-size: 2rem;
+    color: var(--accent);
+    animation: fadeIn 0.3s ease forwards;
+    animation-fill-mode: both;
+    opacity: 0;
+}
+
+.contact-item:hover {
+    transform: translateY(-5px);
+    background-color: var(--bg-primary);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* About Section */
+.about-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-md);
+}
+
+.about-text p {
+    margin-bottom: var(--spacing-md);
+}
+
+.about-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: var(--spacing-sm);
+}
+
+.stat-item {
+    background-color: var(--bg-secondary);
+    padding: var(--spacing-md);
+    border-radius: 8px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.stat-item:hover {
+    transform: translateY(-5px);
+}
+
+.stat-item:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 5px;
+    height: 100%;
+    background: var(--gradient-primary);
+}
+
+.stat-number {
+    display: block;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+/* Portfolio Icons */
+.portfolio-icon {
+    margin-bottom: var(--spacing-sm);
+    transition: all 0.3s ease;
+    animation: fadeIn 0.3s ease forwards;
+    animation-fill-mode: both;
+    opacity: 0;
+    width: 64px;
+    height: 64px;
+}
+
+.portfolio-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.portfolio-item:hover .portfolio-icon {
+    transform: scale(1.2);
+}
+
+/* Resume Details */
+.resume-details {
+    margin-top: 0.5rem;
+    padding-left: 1.5rem;
+    list-style-type: none;
+}
+
+.resume-details li {
+    position: relative;
+    margin-bottom: 0.5rem;
+    list-style-type: none;
+}
+
+.resume-details li:before {
+    content: '';
+    position: absolute;
+    left: -20px;
+    top: 0.5em;
+    width: 10px;
+    height: 2px;
+    background-color: var(--accent);
+    margin-top: 0;
+}
+
+/* Theme and Language Toggle Buttons */
+.footer-toggles {
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-sm);
+}
+
+.toggle-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    border-radius: 20px;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    border: 1px solid var(--border);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.toggle-btn:hover {
+    background-color: var(--bg-secondary);
+    transform: translateY(-2px);
+}
+
+.toggle-btn i {
+    font-size: 0.9rem;
+}
+
+/* Light theme variables */
+body.light-theme {
+    --bg-primary: #f5f5f5;
+    --bg-secondary: #e5e5e5;
+    --text-primary: #121212;
+    --text-secondary: #555555;
+    --border: #dddddd;
+}
+
+body.light-theme .accent, 
+body.light-theme .resume-date, 
+body.light-theme .contact-item i {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Fix the white fade on background in light mode */
+body.light-theme #hero {
+    background: url('images/wallpaper.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+body.light-theme #hero:before {
+    display: none; /* Remove the fade overlay */
+}
+
+/* Fix portfolio item hover animation in light mode */
+body.light-theme .portfolio-item:before {
+    content: '';
+    position: absolute;
+    top: -200%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: rgba(0, 0, 0, 0.05);
+    transform: rotate(45deg);
+    transition: all 0.4s ease;
+}
+
+body.light-theme .portfolio-item:hover:before {
+    top: -100%;
+}
+
+/* Ensure arrows and hover effects are visible */
+body.light-theme .portfolio-item {
+    overflow: hidden;
+    position: relative;
+}
+
+body.light-theme .portfolio-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+body.light-theme:before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(125deg, var(--bg-primary) 0%, var(--bg-primary) 40%, rgba(225, 225, 225, 0.8) 40.1%, var(--bg-primary) 70%, var(--bg-primary) 100%);
+    opacity: 0.4;
+    z-index: -1;
+}
+
+/* Enhanced contrast for light mode */
+body.light-theme .portfolio-item {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+body.light-theme .resume-item p,
+body.light-theme .about-text p {
+    color: #444444;
+}
+
+body.light-theme .stat-label {
+    color: #444444;
+}
+
+body.light-theme .nav-links a:hover,
+body.light-theme .footer-links a:hover {
+    color: var(--accent);
+}
+
+/* Improved header contrast in both themes */
+body.light-theme header {
+    background-color: var(--bg-primary);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+} 
