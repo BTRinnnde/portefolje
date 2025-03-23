@@ -426,9 +426,9 @@ document.addEventListener('DOMContentLoaded', () => {
         // Update CV download link to use appropriate PDF based on language
         const resumeDownloadBtn = document.querySelector('.btn-download');
         if (lang === 'no') {
-            resumeDownloadBtn.href = 'CV_NO.pdf';
+            resumeDownloadBtn.href = 'CV-Bror Tobias Rinde (NO).pdf';
         } else {
-            resumeDownloadBtn.href = 'CV.pdf';
+            resumeDownloadBtn.href = 'CV-Bror Tobias Rinde (EN).pdf';
         }
 
         // Update language skills
@@ -443,5 +443,13 @@ document.addEventListener('DOMContentLoaded', () => {
         if (norwegianSkill) norwegianSkill.textContent = translations[lang]['skill-norwegian'];
         if (englishSkill) englishSkill.textContent = translations[lang]['skill-english'];
         if (spanishSkill) spanishSkill.textContent = translations[lang]['skill-spanish'];
+    }
+
+    // Also update the initial href when the page loads
+    const resumeDownloadBtn = document.querySelector('.btn-download');
+    if (savedLang === 'no') {
+        resumeDownloadBtn.href = 'CV-Bror Tobias Rinde (NO).pdf';
+    } else {
+        resumeDownloadBtn.href = 'CV-Bror Tobias Rinde (EN).pdf';
     }
 }); 
