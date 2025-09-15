@@ -1,4 +1,42 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Force start at top on load/refresh with smooth animation
+    if ('scrollRestoration' in history) {
+        history.scrollRestoration = 'manual';
+    }
+    
+    // Smooth scroll to top on page load
+    window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: 'smooth'
+    });
+    
+    // Handle page refresh and navigation
+    window.addEventListener('beforeunload', () => {
+        window.scrollTo(0, 0);
+    });
+    
+    window.addEventListener('pageshow', (e) => {
+        if (e.persisted) {
+            window.scrollTo({
+                top: 0,
+                left: 0,
+                behavior: 'smooth'
+            });
+        }
+    });
+    
+    // Additional smooth scroll on DOM ready
+    document.addEventListener('DOMContentLoaded', () => {
+        setTimeout(() => {
+            window.scrollTo({
+                top: 0,
+                left: 0,
+                behavior: 'smooth'
+            });
+        }, 100);
+    });
+
     // Add smooth scrolling for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
@@ -56,8 +94,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Add staggered animation for skills
-    const skillItems = document.querySelectorAll('.skills-list li');
-    skillItems.forEach((item, index) => {
+    const skillItemsStagger = document.querySelectorAll('.skills-list li');
+    skillItemsStagger.forEach((item, index) => {
         item.style.animationDelay = `${index * 0.1}s`;
     });
 
@@ -104,20 +142,27 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Add typing effect to hero subtitle
-    const heroSubtitle = document.querySelector('.hero-content p');
-    const originalText = heroSubtitle.textContent;
-    heroSubtitle.textContent = '';
-    
-    let i = 0;
-    const typeInterval = setInterval(() => {
-        if (i < originalText.length) {
-            heroSubtitle.textContent += originalText.charAt(i);
-            i++;
-        } else {
-            clearInterval(typeInterval);
+    // Typing effect utilities
+    let typingInterval = null;
+    function startTyping(text) {
+        const heroSubtitle = document.querySelector('.hero-content p');
+        if (!heroSubtitle) return;
+        if (typingInterval) {
+            clearInterval(typingInterval);
+            typingInterval = null;
         }
-    }, 100);
+        heroSubtitle.textContent = '';
+        let i = 0;
+        typingInterval = setInterval(() => {
+            if (i < text.length) {
+                heroSubtitle.textContent += text.charAt(i);
+                i++;
+            } else {
+                clearInterval(typingInterval);
+                typingInterval = null;
+            }
+        }, 100);
+    }
 
     // Back to top button functionality
     const backToTopButton = document.getElementById('backToTop');
@@ -175,6 +220,10 @@ document.addEventListener('DOMContentLoaded', () => {
         changeLanguage('no');
         langText.textContent = 'NO';
     }
+
+    // After applying saved language, start typing with the current subtitle text
+    const currentSubtitleText = document.querySelector('.hero-content p').textContent;
+    startTyping(currentSubtitleText);
     
     langToggle.addEventListener('click', function() {
         const currentLang = langText.textContent;
@@ -182,10 +231,12 @@ document.addEventListener('DOMContentLoaded', () => {
             changeLanguage('no');
             langText.textContent = 'NO';
             localStorage.setItem('lang', 'no');
+            startTyping('Fornybar Energiingeniør');
         } else {
             changeLanguage('en');
             langText.textContent = 'EN';
             localStorage.setItem('lang', 'en');
+            startTyping('Renewable Energy Engineer');
         }
     });
     
@@ -221,27 +272,37 @@ document.addEventListener('DOMContentLoaded', () => {
                 'resume-subtitle': 'My academic background and engineering skills.',
                 'download-btn': 'Download Resume',
                 'education-heading': 'Education',
+                'msc-title': 'Master in Project Management Engineering',
+                'msc-date': '2025 - Present',
                 'bachelor-title': 'Bachelor in Renewable Energy Engineering',
+                'bachelor-date': '2022 - 2025',
                 'ntnu': 'Norwegian University of Science and Technology (NTNU)',
                 'education-detail1': 'Focused on sustainable energy technologies and systems',
                 'education-detail2': 'Exchange Program: UPV (Valencia), Fall 2024',
                 'experience-heading': 'Experience',
-                'experience-title1': 'Personal Assistant - Brageva',
-                'experience-date1': '2024 - Present',
-                'experience-desc1': 'Assisted a young individual with daily activities, enhancing his independence and balancing the needs of parents, child, and coordinator.',
+                'experience-title1': 'Electrical Engineer - GridVille EWB',
+                'experience-date1': '2025 - Present',
+                'experience-desc1': 'Contributing to the development of a microgrid providing sustainable energy solutions to areas lacking stable electricity access. Part of planning, building, and testing solar, wind, and battery systems to deliver reliable power.',
                 'experience-title2': 'Personal Assistant - Mio BPA',
-                'experience-date2': '2022 - 2024',
-                'experience-desc2': 'Supported an individual\'s daily activities, improved their comfort, and efficiently managed multiple simultaneous tasks.',
-                'experience-title3': 'Security Soldier - Norwegian Armed Forces',
-                'experience-date3': '2020 - 2021',
-                'experience-desc3': 'Controlled inbound and outbound traffic, managed unexpected events at Lutvann Camp as part of a five-person team.',
+                'experience-date2': '2022 - Present',
+                'experience-desc2': 'Assist a young boy with daily tasks, strengthening his independence. Balanced the needs of both parents, child, and coordinator.',
+                'experience-title3': 'Production Worker - Bergene Holm AS',
+                'experience-date3': '2021 - 2022',
+                'experience-desc3': 'Performed tasks in the production line, quality control, and safety. Worked in a structured, independent, and goal-oriented manner.',
+                'personal-projects': 'Personal Projects',
+                'project-title1': 'All Together',
+                'project-desc1': 'Charity project creating background music for a good cause.',
+                'project-link1': 'alltogetherofficial.com',
+                'project-title2': 'The Quiet Hub',
+                'project-desc2': 'A platform for music designed to support focus and relaxation.',
+                'project-link2': 'thequiethub.com',
                 'additional-experience': 'Additional Experience',
                 'additional-title1': 'Youth With A Mission (YWAM) - Volunteer Work',
                 'additional-date1': '2022',
                 'additional-desc1': 'Cross-cultural collaboration, adaptability, and problem-solving in challenging international settings in Hawaii/Colombia.',
-                'additional-title2': 'Production Worker - Bergene Holm AS',
-                'additional-date2': '2021',
-                'additional-desc2': 'Tasks in production lines, quality control, and safety procedures, demonstrating structured and goal-oriented work.',
+                'additional-title2': 'Guard Soldier - Norwegian Armed Forces',
+                'additional-date2': '2020 - 2021',
+                'additional-desc2': 'Controlled incoming and outgoing traffic, carried out security checks, handled unforeseen incidents, and followed all orders in close collaboration with superiors at Lutvann camp.',
                 'additional-title3': 'Barista - Café Sliperiet',
                 'additional-date3': '2019 - 2021',
                 'additional-desc3': 'Customer service and efficiency in a fast-paced environment, developing strong skills in communication and problem-solving.',
@@ -285,7 +346,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 // Portfolio
                 'portfolio-heading': 'Prosjekter',
-                'at-description': 'Veldedighetsprosjekt som leverer bakgrunnsmusikk for en god sak. Et samarbeidsinitiativ for å støtte samfunn i nød gjennom musikk.',
+                'at-description': 'Veldedighetsprosjekt som leverer bakgrunnsmuskikk for en god sak. Et samarbeidsinitiativ for å støtte samfunn i nød gjennom musikk.',
                 'tqh-description': 'En plattform som gjør musikk mer tilgjengelig, med musikk for fokus og avslapning.',
                 'visit-btn': 'Besøk Nettsted',
                 'more-to-come': 'Mer kommer',
@@ -295,27 +356,37 @@ document.addEventListener('DOMContentLoaded', () => {
                 'resume-subtitle': 'Min akademiske bakgrunn og ingeniørferdigheter.',
                 'download-btn': 'Last ned CV',
                 'education-heading': 'Utdanning',
-                'bachelor-title': 'Bachelor i Fornybar Energi',
+                'msc-title': 'Master i prosjektledelse (ingeniør)',
+                'msc-date': '2025 - Nåværende',
+                'bachelor-title': 'Bachelor i fornybar energi',
+                'bachelor-date': '2022 - 2025',
                 'ntnu': 'Norges teknisk-naturvitenskapelige universitet (NTNU)',
                 'education-detail1': 'Fokusert på bærekraftige energiteknologier og systemer',
                 'education-detail2': 'Utvekslingsprogram: UPV (Valencia), Høst 2024',
                 'experience-heading': 'Erfaring',
-                'experience-title1': 'Personlig Assistent - Brageva',
-                'experience-date1': '2024 - Nåværende',
-                'experience-desc1': 'Assistert en ung person med daglige aktiviteter, forbedret hans selvstendighet og balansert behovene til foreldre, barn og koordinator.',
+                'experience-title1': 'Elektroingeniør - GridVille IUG',
+                'experience-date1': '2025 - Nåværende',
+                'experience-desc1': 'Bidrar til utvikling av et mikronett som gir bærekraftige energiløsninger til områder som mangler stabil elektrisitetstilgang. Del av planlegging, bygging og testing av sol-, vind- og batterisystemer for å levere pålitelig strøm.',
                 'experience-title2': 'Personlig Assistent - Mio BPA',
-                'experience-date2': '2022 - 2024',
-                'experience-desc2': 'Støttet en persons daglige aktiviteter, forbedret deres komfort og effektivt håndtert flere samtidige oppgaver.',
-                'experience-title3': 'Sikkerhet Soldat - Norske Forsvaret',
-                'experience-date3': '2020 - 2021',
-                'experience-desc3': 'Kontrollerte inngående og utgående trafikk, håndterte uventede hendelser på Lutvann Leir som en del av et fem-personers team.',
+                'experience-date2': '2022 - Nåværende',
+                'experience-desc2': 'Assisterer en ung gutt med daglige oppgaver, styrker hans selvstendighet. Balanserte behovene til både foreldre, barn og koordinator.',
+                'experience-title3': 'Produksjonsarbeider - Bergene Holm AS',
+                'experience-date3': '2021 - 2022',
+                'experience-desc3': 'Utførte oppgaver i produksjonslinjen, kvalitetskontroll og sikkerhet. Arbeidet på en strukturert, uavhengig og målorientert måte.',
+                'personal-projects': 'Personlige Prosjekter',
+                'project-title1': 'All Together',
+                'project-desc1': 'Veldedighetsprosjekt som lager bakgrunnsmusikk for en god sak.',
+                'project-link1': 'alltogetherofficial.com',
+                'project-title2': 'The Quiet Hub',
+                'project-desc2': 'En plattform for musikk designet for å støtte fokus og avslapning.',
+                'project-link2': 'thequiethub.com',
                 'additional-experience': 'Ytterligere Erfaring',
-                'additional-title1': 'Ungdom med Oppdrag (UMO) - Frivillig Arbeid',
+                'additional-title1': 'Ungdom i Oppdrag (UIO) - Frivillig arbeid',
                 'additional-date1': '2022',
                 'additional-desc1': 'Tverrkulturellt samarbeid, tilpasningsevne og problemløsning i utfordrende internasjonale settinger i Hawaii/Colombia.',
-                'additional-title2': 'Produksjonsarbeider - Bergene Holm AS',
-                'additional-date2': '2021',
-                'additional-desc2': 'Oppgaver i produksjonslinjer, kvalitetskontroll og sikkerhetsprosedyrer, som viser strukturert og målorientert arbeid.',
+                'additional-title2': 'Vakt Soldat - Norske Forsvaret',
+                'additional-date2': '2020 - 2021',
+                'additional-desc2': 'Kontrollerte inngående og utgående trafikk, utførte sikkerhetskontroller, håndterte uventede hendelser og fulgte alle ordre i nært samarbeid med overordnede på Lutvann leir.',
                 'additional-title3': 'Barista - Café Sliperiet',
                 'additional-date3': '2019 - 2021',
                 'additional-desc3': 'Kundeservice og effektivitet i et hektisk miljø, med utvikling av sterke ferdigheter i kommunikasjon og problemløsning.',
@@ -377,14 +448,19 @@ document.addEventListener('DOMContentLoaded', () => {
         // Update Resume sections
         document.querySelectorAll('.resume-section h3')[0].textContent = translations[lang]['education-heading'];
         document.querySelectorAll('.resume-section h3')[1].textContent = translations[lang]['experience-heading'];
-        document.querySelectorAll('.resume-section h3')[2].textContent = translations[lang]['additional-experience'];
-        document.querySelectorAll('.resume-section h3')[3].textContent = translations[lang]['skills-heading'];
+        document.querySelectorAll('.resume-section h3')[2].textContent = translations[lang]['personal-projects'];
+        document.querySelectorAll('.resume-section h3')[3].textContent = translations[lang]['additional-experience'];
+        document.querySelectorAll('.resume-section h3')[4].textContent = translations[lang]['skills-heading'];
         
         // Update Education details
-        document.querySelector('.resume-section:nth-child(1) h4').textContent = translations[lang]['bachelor-title'];
-        document.querySelector('.resume-section:nth-child(1) p:nth-child(3)').textContent = translations[lang]['ntnu'];
-        document.querySelectorAll('.resume-section:nth-child(1) .resume-details li')[0].textContent = translations[lang]['education-detail1'];
-        document.querySelectorAll('.resume-section:nth-child(1) .resume-details li')[1].textContent = translations[lang]['education-detail2'];
+        const educationItems = document.querySelectorAll('.resume-section:nth-child(1) .resume-item');
+        educationItems[0].querySelector('h4').textContent = translations[lang]['msc-title'];
+        educationItems[0].querySelector('.resume-date').textContent = translations[lang]['msc-date'];
+        educationItems[1].querySelector('h4').textContent = translations[lang]['bachelor-title'];
+        educationItems[1].querySelector('.resume-date').textContent = translations[lang]['bachelor-date'];
+        educationItems[1].querySelector('p:not(.resume-date)').textContent = translations[lang]['ntnu'];
+        educationItems[1].querySelectorAll('.resume-details li')[0].textContent = translations[lang]['education-detail1'];
+        educationItems[1].querySelectorAll('.resume-details li')[1].textContent = translations[lang]['education-detail2'];
         
         // Update Experience details
         const experienceItems = document.querySelectorAll('.resume-section:nth-child(2) .resume-item');
@@ -398,8 +474,21 @@ document.addEventListener('DOMContentLoaded', () => {
         experienceItems[2].querySelector('.resume-date').textContent = translations[lang]['experience-date3'];
         experienceItems[2].querySelector('p:not(.resume-date)').textContent = translations[lang]['experience-desc3'];
         
+        // Update Personal Projects details
+        const projectItems = document.querySelectorAll('.resume-section:nth-child(3) .resume-item');
+        if (projectItems[0]) {
+            projectItems[0].querySelector('h4').textContent = translations[lang]['project-title1'];
+            projectItems[0].querySelectorAll('p')[0].textContent = translations[lang]['project-desc1'];
+            projectItems[0].querySelector('a').textContent = translations[lang]['project-link1'];
+        }
+        if (projectItems[1]) {
+            projectItems[1].querySelector('h4').textContent = translations[lang]['project-title2'];
+            projectItems[1].querySelectorAll('p')[0].textContent = translations[lang]['project-desc2'];
+            projectItems[1].querySelector('a').textContent = translations[lang]['project-link2'];
+        }
+        
         // Update Additional Experience details
-        const additionalItems = document.querySelectorAll('.resume-section:nth-child(3) .resume-item');
+        const additionalItems = document.querySelectorAll('.resume-section:nth-child(4) .resume-item');
         additionalItems[0].querySelector('h4').textContent = translations[lang]['additional-title1'];
         additionalItems[0].querySelector('.resume-date').textContent = translations[lang]['additional-date1'];
         additionalItems[0].querySelector('p:not(.resume-date)').textContent = translations[lang]['additional-desc1'];

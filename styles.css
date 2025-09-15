@@ -372,6 +372,20 @@ body.light-theme .btn-primary:hover {
     color: var(--accent);
 }
 
+.skills-categories {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-top: 1rem;
+}
+
+.skill-category h4 {
+    color: var(--accent);
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
 .skills-list {
     display: flex;
     flex-wrap: wrap;
