@@ -530,21 +530,6 @@ footer {
         padding: var(--spacing-md) 0;
     }
     
-    .about-content {
-        grid-template-columns: 1fr;
-        grid-template-areas: 
-            "text"
-            "stats";
-    }
-    
-    .about-text {
-        grid-area: text;
-        margin-bottom: var(--spacing-md);
-    }
-    
-    .about-stats {
-        grid-area: stats;
-    }
     
     .contact-methods {
         flex-direction: row;
@@ -859,6 +844,27 @@ body:before {
     margin-top: var(--spacing-md);
 }
 
+/* Make about text use full width when stats move below */
+@media (max-width: 768px) {
+    .about-content {
+        grid-template-columns: 1fr;
+        grid-template-areas: 
+            "text"
+            "stats";
+    }
+    
+    .about-text {
+        grid-area: text;
+        margin-bottom: var(--spacing-md);
+        width: 100%;
+    }
+    
+    .about-stats {
+        grid-area: stats;
+        width: 100%;
+    }
+}
+
 .about-text p {
     margin-bottom: var(--spacing-md);
 }
@@ -921,6 +927,74 @@ body:before {
     width: 100%;
     height: 100%;
     object-fit: contain;
+}
+
+/* Theme-aware logo swap for portfolio cards */
+.portfolio-icon .logo-light { display: none; }
+body.light-theme .portfolio-icon .logo-dark { display: none; }
+body.light-theme .portfolio-icon .logo-light { display: block; }
+
+/* Larger logo for the GridVille card */
+#project-gridville .portfolio-icon {
+    width: 200px;
+    height: 200px;
+}
+
+@media (max-width: 768px) {
+    #project-gridville .portfolio-icon {
+        width: 160px;
+        height: 160px;
+    }
+}
+
+@media (max-width: 480px) {
+    #project-gridville .portfolio-icon {
+        width: 120px;
+        height: 120px;
+    }
+}
+
+@media (max-width: 350px) {
+    #project-gridville .portfolio-icon {
+        width: 100px;
+        height: 100px;
+    }
+}
+
+/* Remove title for GridVille since logo serves as title */
+#project-gridville h3 {
+    display: none;
+}
+
+/* Reduce spacing specifically for GridVille card to match other cards */
+#project-gridville .portfolio-icon {
+    margin-bottom: -3rem !important;
+}
+
+#project-gridville p {
+    margin-top: -3rem !important;
+    margin-bottom: var(--spacing-sm);
+}
+
+/* Responsive adjustments for GridVille spacing */
+@media (max-width: 768px) {
+    #project-gridville .portfolio-icon {
+        margin-bottom: -2rem !important;
+    }
+    
+    #project-gridville p {
+        margin-top: -2rem !important;
+    }
+}
+
+@media (max-width: 480px) {
+    #project-gridville .portfolio-icon {
+        margin-bottom: -1.5rem !important;
+    }
+    
+    #project-gridville p {
+        margin-top: -1.5rem !important;
+    }
 }
 
 .portfolio-item:hover .portfolio-icon {

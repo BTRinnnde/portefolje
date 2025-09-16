@@ -219,6 +219,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (savedLang === 'no') {
         changeLanguage('no');
         langText.textContent = 'NO';
+    } else {
+        // Ensure English also uses the translations map so the subtitle matches the intended text
+        changeLanguage('en');
+        langText.textContent = 'EN';
     }
 
     // After applying saved language, start typing with the current subtitle text
@@ -231,12 +235,12 @@ document.addEventListener('DOMContentLoaded', () => {
             changeLanguage('no');
             langText.textContent = 'NO';
             localStorage.setItem('lang', 'no');
-            startTyping('Fornybar Energiingeniør');
+            startTyping('Prosjektingeniør med fornybar energi bakgrunn');
         } else {
             changeLanguage('en');
             langText.textContent = 'EN';
             localStorage.setItem('lang', 'en');
-            startTyping('Renewable Energy Engineer');
+            startTyping('Renewable Energy Project Engineer');
         }
     });
     
@@ -250,7 +254,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 'nav-contact': 'Contact',
                 
                 // Hero
-                'hero-title': 'Renewable Energy Engineer',
+                'hero-title': 'Renewable Energy Project Engineer',
                 'hero-btn': 'Learn More',
                 
                 // About
@@ -266,10 +270,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 'tqh-description': 'A platform making music more accessible, providing music for focus and relaxation.',
                 'visit-btn': 'Visit Website',
                 'more-to-come': 'More to come',
+                'gridville-description': 'GridVille is a student project at NTNU that develops sustainable power systems for communities lacking reliable electricity.',
                 
                 // Resume
                 'resume-heading': 'Resume',
-                'resume-subtitle': 'My academic background and engineering skills.',
+                'resume-subtitle': 'My academic background, experience, and engineering skills.',
                 'download-btn': 'Download Resume',
                 'education-heading': 'Education',
                 'msc-title': 'Master in Project Management Engineering',
@@ -317,9 +322,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 // Footer
                 'copyright': '© 2023 Bror Tobias Rinde. All rights reserved.',
-                'address': 'Holtermanns veg 41, 7031 Trondheim, Norway',
+                'address': 'Eidsvolls Gate 43, 7052 Trondheim, Norway',
                 'theme-btn': 'Dark Mode',
                 'lang-btn': 'EN',
+                // Footer subtitle under logo
+                'footer-role': 'MSc student in Project Management Engineering',
                 
                 // Skills
                 'skill-norwegian': 'Norwegian (native)',
@@ -334,7 +341,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 'nav-contact': 'Kontakt',
                 
                 // Hero
-                'hero-title': 'Fornybar Energiingeniør',
+                'hero-title': 'Prosjektingeniør med fornybar energi bakgrunn',
                 'hero-btn': 'Lær mer',
                 
                 // About
@@ -350,15 +357,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 'tqh-description': 'En plattform som gjør musikk mer tilgjengelig, med musikk for fokus og avslapning.',
                 'visit-btn': 'Besøk Nettsted',
                 'more-to-come': 'Mer kommer',
+                'gridville-description': 'GridVille er et teknisk verv som utvikler bærekraftige mikronett som kan etableres der behovet oppstår.',
                 
                 // Resume
                 'resume-heading': 'CV',
-                'resume-subtitle': 'Min akademiske bakgrunn og ingeniørferdigheter.',
+                'resume-subtitle': 'Min akademiske bakgrunn, erfaring og ingeniørferdigheter.',
                 'download-btn': 'Last ned CV',
                 'education-heading': 'Utdanning',
-                'msc-title': 'Master i prosjektledelse (ingeniør)',
+                'msc-title': 'Master i prosjektledelse (sivilingeniør)',
                 'msc-date': '2025 - Nåværende',
-                'bachelor-title': 'Bachelor i fornybar energi',
+                'bachelor-title': 'Bachelor i fornybar energi (ingeniør)',
                 'bachelor-date': '2022 - 2025',
                 'ntnu': 'Norges teknisk-naturvitenskapelige universitet (NTNU)',
                 'education-detail1': 'Fokusert på bærekraftige energiteknologier og systemer',
@@ -401,9 +409,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 // Footer
                 'copyright': '© 2023 Bror Tobias Rinde. Alle rettigheter reservert.',
-                'address': 'Holtermanns veg 41, 7031 Trondheim, Norge',
+                'address': 'Eidsvolls Gate 43, 7052 Trondheim, Norge',
                 'theme-btn': 'Mørk Modus',
                 'lang-btn': 'NO',
+                // Footer subtitle under logo
+                'footer-role': 'Masterstudent i prosjektledelse',
                 
                 // Skills
                 'skill-norwegian': 'Norsk (morsmål)',
@@ -437,9 +447,13 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelector('#portfolio h2').textContent = translations[lang]['portfolio-heading'];
         document.querySelectorAll('.portfolio-item p')[0].textContent = translations[lang]['at-description'];
         document.querySelectorAll('.portfolio-item p')[1].textContent = translations[lang]['tqh-description'];
-        document.querySelectorAll('.portfolio-item .btn')[0].textContent = translations[lang]['visit-btn'];
-        document.querySelectorAll('.portfolio-item .btn')[1].textContent = translations[lang]['visit-btn'];
-        document.querySelector('.more-to-come h3').textContent = translations[lang]['more-to-come'];
+        // GridVille description and buttons
+        const portfolioButtons = document.querySelectorAll('.portfolio-item .btn');
+        if (portfolioButtons[0]) portfolioButtons[0].textContent = translations[lang]['visit-btn'];
+        if (portfolioButtons[1]) portfolioButtons[1].textContent = translations[lang]['visit-btn'];
+        if (portfolioButtons[2]) portfolioButtons[2].textContent = translations[lang]['visit-btn'];
+        const gridVille = document.querySelector('#project-gridville p');
+        if (gridVille) gridVille.textContent = translations[lang]['gridville-description'];
         
         document.querySelector('#resume h2').textContent = translations[lang]['resume-heading'];
         document.querySelector('#resume > p').textContent = translations[lang]['resume-subtitle'];
@@ -456,6 +470,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const educationItems = document.querySelectorAll('.resume-section:nth-child(1) .resume-item');
         educationItems[0].querySelector('h4').textContent = translations[lang]['msc-title'];
         educationItems[0].querySelector('.resume-date').textContent = translations[lang]['msc-date'];
+        // Ensure institution name switches language for MSc as well
+        educationItems[0].querySelector('p:not(.resume-date)').textContent = translations[lang]['ntnu'];
         educationItems[1].querySelector('h4').textContent = translations[lang]['bachelor-title'];
         educationItems[1].querySelector('.resume-date').textContent = translations[lang]['bachelor-date'];
         educationItems[1].querySelector('p:not(.resume-date)').textContent = translations[lang]['ntnu'];
@@ -511,6 +527,11 @@ document.addEventListener('DOMContentLoaded', () => {
         
         document.querySelectorAll('.footer-bottom p')[0].textContent = translations[lang]['copyright'];
         document.querySelectorAll('.footer-bottom p')[1].textContent = translations[lang]['address'];
+        // Update footer subtitle under logo
+        const footerSubtitle = document.querySelector('.footer-logo p');
+        if (footerSubtitle) {
+            footerSubtitle.textContent = translations[lang]['footer-role'];
+        }
         
         // Update CV download link to use appropriate PDF based on language
         const resumeDownloadBtn = document.querySelector('.btn-download');
